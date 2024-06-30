@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public VariableJoystick joystick;
     public CharacterController controller;
     public Animator playerAnimator;
+    public GameObject macComp;
 
     //Sprite fx
     public GameObject phoneMatrix; 
@@ -36,10 +37,13 @@ public class PlayerController : MonoBehaviour
             if (movementDirection.sqrMagnitude <= 0)
             {
                 playerAnimator.SetBool("isWalking", false);
+                
                 phoneMatrix.SetActive(true);
                 return;
             }
             playerAnimator.SetBool("isWalking", true);
+            playerAnimator.SetBool("isHacking", false);
+            macComp.SetActive(false);
             phoneMatrix.SetActive(false);
             var targetDirection = Vector3.RotateTowards(controller.transform.forward,
                 movementDirection,rotationSpeed*Time.deltaTime,0f);
