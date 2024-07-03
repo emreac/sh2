@@ -7,6 +7,9 @@ TagManager:
   - BuildingTrigger
   - Building
   - Enemy
+  - Gate
+  - GateBox
+  - GateBox2
   layers:
   - Default
   - TransparentFX

@@ -16,9 +16,11 @@ public class PlayerController : MonoBehaviour
     public bool isJoystick;
     public float movementSpeed;
     public float rotationSpeed;
+    public bool walking;
 
     private void Start()
     {
+        Time.timeScale = 1f;
         EnableJoystickInput();
     }
 
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             playerAnimator.SetBool("isWalking", true);
+            walking = true;
             playerAnimator.SetBool("isHacking", false);
             macComp.SetActive(false);
             phoneMatrix.SetActive(false);
