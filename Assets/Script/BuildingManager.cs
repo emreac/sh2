@@ -22,6 +22,7 @@ public class BuildingManager : MonoBehaviour
     public AudioSource computerSound;
     public AudioSource winSound;
     public AudioSource gameMusic;
+    public AudioSource startSound;
 
    
     public AudioSource hackingProcess;
@@ -50,7 +51,7 @@ public class BuildingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        StartCoroutine(WaitStartSound());
         buildingCollider = GetComponent<Collider>();
         hackingArea = GetComponent<SpriteRenderer>();
 
@@ -196,6 +197,7 @@ public class BuildingManager : MonoBehaviour
     }
     public void SetAsHacked()
     {
+        StartCoroutine(WaitStopGame());
         StartCoroutine(WaitWinSound());
         gameMusic.Stop();
         Debug.Log("Building Hacked! > NEXT LEVEL");
@@ -248,5 +250,15 @@ public class BuildingManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         winSound.Play();
+    }
+    IEnumerator WaitStartSound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        startSound.Play();
+    }
+    IEnumerator WaitStopGame()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0f;
     }
 }

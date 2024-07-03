@@ -9,7 +9,7 @@ public class DrawLinerenderer : MonoBehaviour
     public Transform point3;
     public LineRenderer lineRenderer;
     public float vertexCount = 12;
-    //public float point2YPosition = 12;
+    public float point2YPosition = 12;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,9 @@ public class DrawLinerenderer : MonoBehaviour
     void Update()
     {
         
-    //point2.transform.position = new Vector3((point1.transform.position.x +
-    //    point3.transform.position.x),point2YPosition,
-    //        (point1.transform.position.z+point3.transform.position.z)/2);
+    point2.transform.position = new Vector3((point1.transform.position.x +
+        point3.transform.position.x),point2YPosition,
+            (point1.transform.position.z+point3.transform.position.z)/2);
         var pointList = new List<Vector3>();
         for (float ratio = 0; ratio <= 1; ratio += 1/vertexCount)
         {
