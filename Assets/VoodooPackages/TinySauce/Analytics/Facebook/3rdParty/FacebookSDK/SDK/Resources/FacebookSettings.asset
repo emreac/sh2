@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - e59ea5d6970cfe5b6427c9a6e5d5eccb
+  - 
   appIds:
-  - 1491202951484611
+  - 0
   appLabels:
-  - super-hacker
+  - App Name
   cookie: 1
   logging: 1
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: C:\openssl\bin\debug_base64.txt
+  androidKeystorePath: 
   iosURLSuffix: 
   appLinkSchemes:
   - list: []
