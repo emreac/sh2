@@ -6,10 +6,15 @@ using UnityEngine.UI;
 using DG;
 using DG.Tweening;
 using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BuildingManager : MonoBehaviour
 {
-    
+    //Score
+    public float score;
+
+    //TS
+    public bool isUserCompleteLevel;
 
     public bool hacked;
     public LineRenderer lineRenderer;
@@ -161,7 +166,7 @@ public class BuildingManager : MonoBehaviour
             if (buildingCollider != null)
             {
                 buildingCollider.enabled = false;
-                Debug.Log("Collider disabled.");
+                //Debug.Log("Collider disabled.");
             }
         }
    
@@ -200,7 +205,7 @@ public class BuildingManager : MonoBehaviour
         StartCoroutine(WaitStopGame());
         StartCoroutine(WaitWinSound());
         gameMusic.Stop();
-        Debug.Log("Building Hacked! > NEXT LEVEL");
+        //Debug.Log("Building Hacked! > NEXT LEVEL");
         hacked = true;
         hackDoneSound.Play();
         hackingProcess.Stop();
@@ -211,12 +216,13 @@ public class BuildingManager : MonoBehaviour
 
     public void SetAsGateHacked()
     {
+        TinySauce.OnGameFinished(isUserCompleteLevel, score);
         gateLight1.SetBool("isGreen", true);
         gateSound.Play();
         DOTween.Play("Door1");
         DOTween.Play("Door2");
 
-        Debug.Log("Gate Hacked!");
+       // Debug.Log("Gate Hacked!");
         hacked = true;
         hackDoneSound.Play();
         hackingProcess.Stop();
@@ -224,13 +230,15 @@ public class BuildingManager : MonoBehaviour
     }
     public void SetAsGate2Hacked()
     {
+        isUserCompleteLevel = true;
         gateSound.Play();
         gateLight2.SetBool("isGreen", true);
-        
-     
+        //TS
+        TinySauce.OnGameFinished(isUserCompleteLevel, score);
+
         DOTween.Play("Door3");
         DOTween.Play("Door4");
-        Debug.Log("Gate Hacked!");
+       // Debug.Log("Gate Hacked!");
         hacked = true;
         hackDoneSound.Play();
         hackingProcess.Stop();
@@ -243,7 +251,18 @@ public class BuildingManager : MonoBehaviour
     }
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+
+            SceneManager.LoadScene("Level1");
+        }
     }
 
     IEnumerator WaitWinSound()

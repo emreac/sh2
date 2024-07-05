@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        TinySauce.OnGameStarted("Level1");
         Time.timeScale = 1f;
         EnableJoystickInput();
     }
