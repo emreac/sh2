@@ -1,12 +1,8 @@
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG;
-using DG.Tweening;
-using static UnityEngine.Rendering.DebugUI;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class BuildingManager : MonoBehaviour
 {
@@ -29,7 +25,7 @@ public class BuildingManager : MonoBehaviour
     public AudioSource gameMusic;
     public AudioSource startSound;
 
-   
+
     public AudioSource hackingProcess;
     public AudioSource hackDoneSound;
     public AudioSource gateSound;
@@ -38,7 +34,7 @@ public class BuildingManager : MonoBehaviour
     public Collider gate2Collider;
     public Animator gateLight1;
     public Animator gateLight2;
-    
+
 
     public RandomSoundPlayer soundPlayer;
 
@@ -69,7 +65,7 @@ public class BuildingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-   
+
     }
     /*
     private void OnDrawGizmos()
@@ -86,23 +82,23 @@ public class BuildingManager : MonoBehaviour
     {
         if (other.CompareTag("Building")) // Assuming the player is the object triggering the event
         {
-           // Debug.Log("building found!");
+            // Debug.Log("building found!");
             // Set the GameObject to inactive
             lineRenderer.gameObject.SetActive(false);
             Color color = hackingArea.color;
             color.a = 0.8f;
             hackingArea.color = color;
-            
+
             playerAnimator.SetBool("isHacking", true);
             macComp.SetActive(true);
             macAnimator.SetBool("macOpen", true);
-            HackingCountDown(hackingSpeed*Time.deltaTime);
+            HackingCountDown(hackingSpeed * Time.deltaTime);
 
         }
 
         if (other.CompareTag("GateBox"))
         {
-           
+
             Color color = hackingArea.color;
             color.a = 0.8f;
             hackingArea.color = color;
@@ -111,12 +107,12 @@ public class BuildingManager : MonoBehaviour
             macComp.SetActive(true);
             macAnimator.SetBool("macOpen", true);
             HackingCountDownGate1(hackingSpeed * Time.deltaTime);
-            
+
         }
 
         if (other.CompareTag("GateBox2"))
         {
-            
+
             Color color = hackingArea.color;
             color.a = 0.8f;
             hackingArea.color = color;
@@ -134,8 +130,8 @@ public class BuildingManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject.tag == "Building" || other.gameObject.tag == "GateBox" || other.gameObject.tag=="GateBox2")
+
+        if (other.gameObject.tag == "Building" || other.gameObject.tag == "GateBox" || other.gameObject.tag == "GateBox2")
         {
             soundPlayer.PlayRandomSound();
             computerSound.Play();
@@ -160,7 +156,7 @@ public class BuildingManager : MonoBehaviour
     public void HackingCountDown(float value)
     {
         countdownPieBuilding.fillAmount += value;
-        if(countdownPieBuilding.fillAmount >= 1)
+        if (countdownPieBuilding.fillAmount >= 1)
         {
             SetAsHacked();
             if (buildingCollider != null)
@@ -169,8 +165,8 @@ public class BuildingManager : MonoBehaviour
                 //Debug.Log("Collider disabled.");
             }
         }
-   
-       
+
+
     }
 
     public void HackingCountDownGate1(float value)
@@ -211,7 +207,7 @@ public class BuildingManager : MonoBehaviour
         hackingProcess.Stop();
         winUI.SetActive(true);
         // Disable the collider to prevent further interactions
-      
+
     }
 
     public void SetAsGateHacked()
@@ -222,7 +218,7 @@ public class BuildingManager : MonoBehaviour
         DOTween.Play("Door1");
         DOTween.Play("Door2");
 
-       // Debug.Log("Gate Hacked!");
+        // Debug.Log("Gate Hacked!");
         hacked = true;
         hackDoneSound.Play();
         hackingProcess.Stop();
@@ -238,7 +234,7 @@ public class BuildingManager : MonoBehaviour
 
         DOTween.Play("Door3");
         DOTween.Play("Door4");
-       // Debug.Log("Gate Hacked!");
+        // Debug.Log("Gate Hacked!");
         hacked = true;
         hackDoneSound.Play();
         hackingProcess.Stop();
@@ -251,7 +247,8 @@ public class BuildingManager : MonoBehaviour
     }
     public void NextLevel()
     {
-
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        /*
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
@@ -263,6 +260,7 @@ public class BuildingManager : MonoBehaviour
 
             SceneManager.LoadScene("Level1");
         }
+        */
     }
 
     IEnumerator WaitWinSound()
@@ -277,7 +275,7 @@ public class BuildingManager : MonoBehaviour
     }
     IEnumerator WaitStopGame()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0f;
     }
 }
